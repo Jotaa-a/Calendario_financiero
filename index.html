@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Calendario de Ahorros</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">📅 Calendario de Ahorros 2025</div>
+    <div class="title-edit-wrap">
+      <div id="main-title" contenteditable="false" spellcheck="false">Mi Meta Financiera</div>
+      <button class="edit-btn" onclick="toggleTitleEdit()">✏️ Editar</button>
+    </div>
+    <p class="subtitle">Registra, visualiza y celebra cada paso hacia tu meta</p>
+  </div>
+
+  <!-- META CARD -->
+  <div class="meta-card">
+    <div class="meta-label">🎯 Mi Meta Clara</div>
+    <div class="meta-row">
+      <div class="meta-field">
+        <label>¿Para qué estoy ahorrando?</label>
+        <input class="meta-input" id="meta-desc" type="text" placeholder="Ej: Viaje a Europa..." value="">
+      </div>
+      <div class="meta-field">
+        <label>Monto objetivo ($)</label>
+        <input class="meta-input" id="meta-goal" type="number" placeholder="5000" value="" min="0" oninput="updateProgress()">
+      </div>
+      <div class="meta-field">
+        <label>Fecha límite</label>
+        <input class="meta-input" id="meta-date" type="date">
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-header">
+        <span>Progreso acumulado</span>
+        <span class="progress-pct" id="pct-text">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon">💵</div>
+      <div class="stat-value" id="stat-total">$0</div>
+      <div class="stat-label">Ahorrado</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📆</div>
+      <div class="stat-value" id="stat-days">0</div>
+      <div class="stat-label">Días marcados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🏁</div>
+      <div class="stat-value" id="stat-left">$0</div>
+      <div class="stat-label">Falta</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('daily', this)">📅 Diario</button>
+    <button class="tab-btn" onclick="switchTab('weekly', this)">📊 Semanal</button>
+    <button class="tab-btn" onclick="switchTab('monthly', this)">🗓️ Mensual</button>
+  </div>
+
+  <!-- DAILY VIEW -->
+  <div class="view active" id="view-daily">
+    <div id="daily-grid"></div>
+  </div>
+
+  <!-- WEEKLY VIEW -->
+  <div class="view" id="view-weekly">
+    <table class="week-table">
+      <thead>
+        <tr>
+          <th>Semana</th>
+          <th>Período</th>
+          <th>Monto ahorrado</th>
+          <th>Nota</th>
+          <th>Progreso</th>
+        </tr>
+      </thead>
+      <tbody id="week-tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- MONTHLY VIEW -->
+  <div class="view" id="view-monthly">
+    <div class="months-grid" id="months-grid"></div>
+  </div>
+
+  <!-- MOTIVACIÓN -->
+  <div class="motive-section">
+    <div class="section-title">✨ Frase del día</div>
+    <div class="quote-text" id="quote-text" onclick="nextQuote()"></div>
+    <div class="quote-author" id="quote-author"></div>
+    <button class="quote-btn" onclick="nextQuote()">🔄 Nueva frase</button>
+  </div>
+
+  <!-- NOTAS -->
+  <div class="notes-section">
+    <div class="section-title">📝 Mis notas personales</div>
+    <textarea class="notes-input" id="notes" placeholder="Escribe aquí tus reflexiones, estrategias, o recordatorios..."></textarea>
+  </div>
+
+  <!-- SAVE -->
+  <button class="save-btn" onclick="saveData()">💾 Guardar todo mi progreso</button>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">💰 Registrar ahorro</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;" id="modal-day-label">Día seleccionado</p>
+    <input class="modal-input" id="modal-amount" type="number" placeholder="Monto ahorrado ($)" min="0">
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="modal-confirm" onclick="confirmDay()">✓ Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script src="./script.js"></script>
+
+</body>
+</html>
