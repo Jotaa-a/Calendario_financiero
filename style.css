@@ -80,16 +80,21 @@ body::before {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 5vw, 3.4rem);
   font-weight: 900;
-  background: linear-gradient(135deg, #fff 30%, var(--gold) 100%);
+  background-color: white; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1.1;
   border: none;
-  background: linear-gradient(135deg, #fff 30%, var(--gold) 100%);
+  background-color: white; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
+}
+.title-meta {
+  background: linear-gradient(135deg, var(--gold), rgb(208, 147, 3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 #main-title[contenteditable="true"] {
   outline: 2px dashed var(--gold);

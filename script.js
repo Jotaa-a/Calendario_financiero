@@ -36,7 +36,6 @@ function init() {
   renderMonthly();
   renderQuote();
   syncUI();
-  document.getElementById('main-title').textContent = state.title;
   document.getElementById('meta-desc').value = state.metaDesc;
   document.getElementById('meta-goal').value = state.metaGoal;
   document.getElementById('meta-date').value = state.metaDate;
@@ -250,27 +249,6 @@ function nextQuote() {
   const el = document.getElementById('quote-text');
   el.style.opacity = '0';
   setTimeout(() => { renderQuote(); el.style.opacity = '1'; }, 200);
-}
-
-// ===== TITLE EDIT =====
-function toggleTitleEdit() {
-  const el = document.getElementById('main-title');
-  const btn = event.target;
-  if (el.contentEditable === 'true') {
-    el.contentEditable = 'false';
-    state.title = el.textContent;
-    btn.textContent = '✏️ Editar';
-    showToast('Título actualizado');
-  } else {
-    el.contentEditable = 'true';
-    el.focus();
-    btn.textContent = '✓ Guardar';
-    // Select all
-    const range = document.createRange();
-    range.selectNodeContents(el);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-  }
 }
 
 // ===== SAVE / LOAD =====
